@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Checkout</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f0f0f0; }
+    h1 { margin-bottom: 20px; }
+    .form-group { margin-bottom: 15px; }
+    input, textarea { width: 100%; padding: 10px; }
+    button { padding: 10px 20px; background: #20bf6b; color: white; border: none; border-radius: 5px; }
+    .cart-summary { margin: 20px 0; padding: 10px; background: #fff; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+
+  <h1>Checkout</h1>
+
+  <div class="cart-summary" id="cartSummary">
+    <strong>Your items:</strong>
+    <ul id="cartItems"></ul>
+  </div>
+
+  <form action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="76de8bd2-761b-4c57-949e-3c5b8d372369">
+    <input type="hidden" name="cart" id="cartField">
+
+    <div class="form-group">
+      <label>Your Name</label>
+      <input type="text" name="name" required>
+    </div>
+
+    <div class="form-group">
+      <label>Your Email</label>
+      <input type="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label>Delivery Address</label>
+      <textarea name="address" required></textarea>
+    </div>
+
+    <button type="submit">Submit Order</button>
+  </form>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const list = document.getElementById('cartItems');
+    const hiddenInput = document.getElementById('cartField');
+
+    if (cart.length > 0) {
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        list.appendChild(li);
+      });
+      hiddenInput.value = cart.join(', ');
+    } else {
+      list.innerHTML = "<li>No items in cart</li>";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pillow Shop</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f9f9f9; }
+    h1 { margin-bottom: 10px; }
+    .category-buttons button { margin: 0 10px 20px 0; padding: 10px 20px; }
+    .product-list { display: none; }
+    .product-list.active { display: block; }
+    .product { background: white; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; }
+    .cart { margin-top: 20px; }
+    .cart a { display: inline-block; margin-top: 10px; text-decoration: none; background: #20bf6b; color: white; padding: 10px 20px; border-radius: 30px; }
+  </style>
+</head>
+<body>
+
+  <h1>Pillow Shop</h1>
+
+  <div class="category-buttons">
+    <button onclick="showCategory('pillows')">Pillows</button>
+    <button onclick="showCategory('bedsheets')">Bedsheets</button>
+  </div>
+
+  <div id="pillows" class="product-list active">
+    <div class="product">
+      Soft Pillow - $10
+      <button onclick="addToCart('Soft Pillow - $10')">Add to Cart</button>
+    </div>
+    <div class="product">
+      Memory Foam Pillow - $15
+      <button onclick="addToCart('Memory Foam Pillow - $15')">Add to Cart</button>
+    </div>
+  </div>
+
+  <div id="bedsheets" class="product-list">
+    <div class="product">
+      Cotton Bedsheet - $20
+      <button onclick="addToCart('Cotton Bedsheet - $20')">Add to Cart</button>
+    </div>
+    <div class="product">
+      Silk Bedsheet - $30
+      <button onclick="addToCart('Silk Bedsheet - $30')">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="cart">
+    <a href="checkout.html" onclick="saveCart()">Go to Checkout</a>
+  </div>
+
+  <script>
+    function showCategory(cat) {
+      document.querySelectorAll('.product-list').forEach(p => p.classList.remove('active'));
+      document.getElementById(cat).classList.add('active');
+    }
+
+    const cart = [];
+
+    function addToCart(item) {
+      cart.push(item);
+      alert(item + " added to cart.");
+    }
+
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+  </script>
+
+</body>
+</html>
